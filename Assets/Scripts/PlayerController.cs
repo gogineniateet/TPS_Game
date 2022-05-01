@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
         
         if (inputZ != 0 || inputX != 0)
         {
-            characterController.Move(movement * Time.deltaTime * playerSpeed);
+            characterController.SimpleMove(movement * Time.deltaTime * playerSpeed);
         }
 
         // player rotation

@@ -1,0 +1,25 @@
+-------Third person shooter Gamee Design Document-------
+
+Game Play >> Here player is the shooter when he has to save his life from the enemy by killing all of them.
+			 Player has to collect the ammo to shoot the enemy, and medi kit  for the health.
+			 There are some fire pit where player needs to be carefull, If player walks through the fire pit then the health is decreased.	
+
+
+Win Condition >> If the player kills all the zombies by saving his life then player won the game.
+
+Loss Condition >> If the player is killed by the enemy / player health is zero
+
+Terrain - water body, fire pit
+Player movement, animations
+Shooting with raycast 
+Partical effect
+Enemy movement, animation 
+Nav mesh to terrain
+Enemy spawning
+Health and damage system
+Amination and medi kits pick up	
+Audio souce 
+UI- Health bar, Enemy kill counts
+Death - Game over functionality
+Win - Game won panel
+
