@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     //public GameObject enemyPrefab;
-    private float timer;
+    private float timer;    
 
     // Update is called once per frame
     void Update()
@@ -16,8 +16,13 @@ public class SpawnManager : MonoBehaviour
         {
             //Instantiate(enemyPrefab, this.transform.position, Quaternion.identity);
             GameObject fromPool = ObjectPool.Instance.GetEnemyFromPool("Enemy");
-            fromPool.SetActive(true);
+            //Debug.Log(fromPool);
+            fromPool.SetActive(true);                       
             timer = 0f;
         }
+        //else
+        //{
+        //    return null;
+        //}
     }
 }

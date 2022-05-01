@@ -14,6 +14,15 @@ public class ObjectPool : MonoBehaviour
     
     public List<GameObject> pool = new List<GameObject>();
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        return;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
