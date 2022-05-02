@@ -1,23 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     public float playerSpeed;
     public float playerRotateSpeed;
 
-    public Transform firePosition;
+    
     CharacterController characterController;
     Animator animator;
-    //ScoreManager score;
 
+    [SerializeField] private Text ScoreValue;
+    [SerializeField] private Text healthValue;
+
+    int health = 100;
+    int maxHealth = 100;
+    int MedikitHealth = 50;
 
     // Start is called before the first frame update
     void Start()
     {
         characterController = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+        healthValue.text= health.ToString();
     }
 
     // Update is called once per frame
@@ -27,9 +34,7 @@ public class PlayerController : MonoBehaviour
         float inputZ = Input.GetAxis("Vertical");
         Vector3 movement = new Vector3(inputX, 0f, inputZ);
         animator.SetFloat("Speed", movement.magnitude);
-        
-   
-         characterController.SimpleMove(movement * Time.deltaTime * playerSpeed);
+        characterController.SimpleMove(movement * Time.deltaTime * playerSpeed);
      
 
         // player rotation
@@ -37,27 +42,27 @@ public class PlayerController : MonoBehaviour
         {
             Quaternion tempDirection = Quaternion.LookRotation(movement);
             transform.rotation = Quaternion.Slerp(transform.rotation, tempDirection, Time.deltaTime * playerRotateSpeed);
-        }
-
-        // player shooting
-        if(Input.GetMouseButtonDown(0))
-        {
-            Fire();
-        }
+        }        
     }
 
-    public void Fire()
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.DrawRay(firePosition.position, transform.forward * 100, Color.red, 1f);
-        Ray ray = new Ray(firePosition.position, firePosition.forward);
-        RaycastHit hitInfo;
-        if (Physics.Raycast(ray, out hitInfo, 100f))
+        if(other.gameObject.tag == "HealthKit")
         {
-            if (hitInfo.collider.tag == "Enemy")
+            int currentHealth = maxHealth - health;
+            if(maxHealth >= currentHealth)
             {
-                //Debug.Log("Killed Enemy");
-                //score.ScoreUpdate(1); // Updating score - enemy kill
+                health = health + currentHealth;
             }
+            else
+            {
+                health = health + maxHealth;
+            }
+            healthValue.text = health.ToString();
+            Debug.Log("Health:" + health);
+            Destroy(other.gameObject);
         }
     }
+
+
 }
