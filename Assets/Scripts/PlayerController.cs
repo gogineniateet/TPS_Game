@@ -11,17 +11,19 @@ public class PlayerController : MonoBehaviour
     
     CharacterController characterController;
     Animator animator;
+    public GameObject GameOverPanel;
 
-    [SerializeField] private Text ScoreValue;
+    
     [SerializeField] private Text healthValue;
 
     int health = 100;
     int maxHealth = 100;
-    int MedikitHealth = 50;
+    //int MedikitHealth = 50;
 
     // Start is called before the first frame update
     void Start()
     {
+        GameOverPanel.SetActive(false);
         characterController = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         healthValue.text= health.ToString();
@@ -42,15 +44,32 @@ public class PlayerController : MonoBehaviour
         {
             Quaternion tempDirection = Quaternion.LookRotation(movement);
             transform.rotation = Quaternion.Slerp(transform.rotation, tempDirection, Time.deltaTime * playerRotateSpeed);
-        }        
+        }         
+        
     }
 
+    // decreasing the shooter health when enemy attacks.
+    public void TakeHit(float value)
+    {
+        health = (int)Mathf.Clamp(health - value, 0, maxHealth); //  medical is health
+        //Debug.Log("heath :" + health);
+        healthValue.text = health.ToString();
+        if (health <= 0)
+        {
+            Vector3 position = new Vector3(transform.position.x, Terrain.activeTerrain.SampleHeight(this.transform.position), transform.position.z);
+            Destroy(this.gameObject);
+            GameOverPanel.SetActive(true);
+            //Debug.Log("Shooter dead");
+        }
+    }
+
+    // collecting health kit
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "HealthKit")
+        if (other.gameObject.tag == "HealthKit")
         {
             int currentHealth = maxHealth - health;
-            if(maxHealth >= currentHealth)
+            if (maxHealth >= currentHealth)
             {
                 health = health + currentHealth;
             }
@@ -59,10 +78,14 @@ public class PlayerController : MonoBehaviour
                 health = health + maxHealth;
             }
             healthValue.text = health.ToString();
-            Debug.Log("Health:" + health);
             Destroy(other.gameObject);
         }
-    }
 
+        if(other.gameObject.tag == "Water")
+        {
+
+        }
+
+    }
 
 }

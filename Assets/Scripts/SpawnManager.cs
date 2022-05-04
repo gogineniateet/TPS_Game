@@ -12,17 +12,16 @@ public class SpawnManager : MonoBehaviour
     {
         // spawning enemy and setting active 
         timer = timer + Time.deltaTime;
-        if(timer > 5f)
+        if(timer > 1f)
         {
             //Instantiate(enemyPrefab, this.transform.position, Quaternion.identity);
             GameObject fromPool = ObjectPool.Instance.GetEnemyFromPool("Enemy");
-            //Debug.Log(fromPool);
-            fromPool.SetActive(true);                       
-            timer = 0f;
-        }
-        //else
-        //{
-        //    return null;
-        //}
+            if (fromPool != null)
+            {
+                fromPool.SetActive(true);
+                timer = 0f;
+            }
+            //Debug.Log(fromPool);            
+        }       
     }
 }

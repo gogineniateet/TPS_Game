@@ -36,13 +36,15 @@ public class ObjectPool : MonoBehaviour
         {
             Vector3 randomPosition = transform.position + Random.insideUnitSphere * spawnRadius;
             NavMeshHit hit;
-            if(NavMesh.SamplePosition(randomPosition, out hit, 10f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(randomPosition, out hit, 10f, NavMesh.AllAreas))
             {
                 result = hit.position;
                 GameObject temp = Instantiate(enemyPrefab, result, Quaternion.identity);
                 temp.SetActive(false);
                 pool.Add(temp);
             }
+            else
+                i--;
         }
     }
 

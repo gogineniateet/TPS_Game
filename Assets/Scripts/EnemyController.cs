@@ -9,25 +9,36 @@ public class EnemyController : MonoBehaviour
     NavMeshAgent agent;
     Animator animator;
     State currentState;
+    private Transform player;
 
-    public Transform player;    
-    
+    private int damageAmount = 5;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
-        if (player == null)
-        {
-            player = GameObject.Find("Player").GetComponent<Transform>();
-        }
+        animator = GetComponent<Animator>();       
+        
+        player = GameObject.Find("Player").GetComponent<Transform>();
+        
         currentState = new Idle(this.gameObject, agent, animator, player);
     }
 
     // Update is called once per frame
     void Update()
     {
-        currentState = currentState.Process();
+        if(player != null)
+        {
+            currentState = currentState.Process();
+        }
+    }
+
+    // attacking player decreasing player health
+    public void DamagePlayer()
+    {
+        if (player != null)
+        {
+            player.GetComponent<PlayerController>().TakeHit(damageAmount); 
+        }
     }
 }
 public class State
@@ -166,7 +177,7 @@ public class Attack : State
     }
     public override void Enter()
     {
-        animator.SetTrigger("isShooting");
+        animator.SetTrigger("isAttacking");
         base.Enter();
     }
     public override void Update()
@@ -180,7 +191,7 @@ public class Attack : State
     }
     public override void Exit()
     {
-        animator.ResetTrigger("isShooting");
+        animator.ResetTrigger("isAttacking");
         base.Exit();
     }
 }
@@ -197,13 +208,13 @@ public class Death : State
     }
     public override void Enter()
     {
-        animator.SetTrigger("isSleeping");
+        animator.SetTrigger("isDead");
         base.Enter();
     }
 
     public override void Exit()
     {
-        animator.ResetTrigger("isSleeping");
+        animator.ResetTrigger("isDead");
         base.Exit();
     }
 }
