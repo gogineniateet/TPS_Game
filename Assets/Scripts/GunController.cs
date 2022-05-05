@@ -11,12 +11,15 @@ public class GunController : MonoBehaviour
     public Animator animator;
     [SerializeField] private Text ammoText;
     [SerializeField] private Text ScoreValue;
-    private static int score = 0;
-
+    ScoreManager score;
     int ammo = 50;
     int maxAmmo = 50;
     int ammoKit = 50;
 
+    private void Start()
+    {
+        score = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+    }
 
 
     // Update is called once per frame
@@ -48,7 +51,8 @@ public class GunController : MonoBehaviour
                 GameObject tempRd = hitZombie.GetComponent<EnemyController>().ragdollPrefab;
                 GameObject newTempRd = Instantiate(tempRd, hitZombie.transform.position, hitZombie.transform.rotation);
                 newTempRd.transform.Find("Hips").GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 10000);
-                hitZombie.SetActive(false);                
+                hitZombie.SetActive(false);
+                score.ScoreUpdate(5);
             }
         }
     }

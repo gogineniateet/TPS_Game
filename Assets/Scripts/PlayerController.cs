@@ -83,10 +83,9 @@ public class PlayerController : MonoBehaviour
         }
 
         if(other.gameObject.tag == "Water")
-        { 
-        
+        {
+            Destroy(this.gameObject);
+            GameOverPanel.SetActive(true);
         }
-
     }
-
 }
