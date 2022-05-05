@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     CharacterController characterController;
     Animator animator;
     public GameObject GameOverPanel;
+    public GameObject GameWonPanel;
 
     
     [SerializeField] private Text healthValue;
@@ -82,8 +83,8 @@ public class PlayerController : MonoBehaviour
         }
 
         if(other.gameObject.tag == "Water")
-        {
-
+        { 
+        
         }
 
     }

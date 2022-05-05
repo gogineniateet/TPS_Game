@@ -37,18 +37,21 @@ public class GunController : MonoBehaviour
 
     public void Fire()
     {
-        Debug.DrawRay(firePosition.position, transform.forward * 100, Color.red, 1f);
         Ray ray = new Ray(firePosition.position, firePosition.forward);
+        Debug.DrawRay(ray.origin, ray.direction * 30f, Color.red, 2f);
         RaycastHit hitInfo;
         if (Physics.Raycast(ray, out hitInfo, 100f))
-        { 
-            GameObject hitEnemy = hitInfo.collider.gameObject;
-            //Debug.Log(hitEnemy);
-            if (hitEnemy.tag == "Enemy")
+        {
+            GameObject hitZombie = hitInfo.collider.gameObject;
+            if (hitZombie.tag == "Enemy")
             {
-                hitEnemy.SetActive(false);
-                Instantiate(Blood, hitInfo.point, Quaternion.identity);                
-                Debug.Log("Killed Enemy");
+
+                    GameObject tempRd = hitZombie.GetComponent<EnemyController>().ragdollPrefab;
+                    GameObject newTempRd = Instantiate(tempRd, hitZombie.transform.position, hitZombie.transform.rotation);
+                    newTempRd.transform.Find("Hips").GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 10000);
+                hitZombie.SetActive(false);
+
+                
             }
         }
     }

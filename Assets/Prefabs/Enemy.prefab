@@ -106,6 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68ab5cb49db273c4f9a7b2b298d2b54b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ragdollPrefab: {fileID: 8982436031687191159, guid: 00ae033f72fe83a4ab53091da4e38c2f, type: 3}
 --- !u!1 &214004419675012025
 GameObject:
   m_ObjectHideFlags: 0

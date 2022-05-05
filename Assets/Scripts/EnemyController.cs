@@ -12,6 +12,8 @@ public class EnemyController : MonoBehaviour
     private Transform player;
 
     private int damageAmount = 5;
+    public GameObject ragdollPrefab;
+    
 
     void Start()
     {
@@ -208,8 +210,12 @@ public class Death : State
     }
     public override void Enter()
     {
+        //GameObject tempRd = Instantiate(ragdollPrefab, this.transform.position, this.transform.rotation);
+        //tempRd.transform.Find("Hips").GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 1000);
+        //Destroy(this.gameObject);
         animator.SetTrigger("isDead");
         base.Enter();
+
     }
 
     public override void Exit()
