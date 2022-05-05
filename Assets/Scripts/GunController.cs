@@ -45,13 +45,10 @@ public class GunController : MonoBehaviour
             GameObject hitZombie = hitInfo.collider.gameObject;
             if (hitZombie.tag == "Enemy")
             {
-
-                    GameObject tempRd = hitZombie.GetComponent<EnemyController>().ragdollPrefab;
-                    GameObject newTempRd = Instantiate(tempRd, hitZombie.transform.position, hitZombie.transform.rotation);
-                    newTempRd.transform.Find("Hips").GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 10000);
-                hitZombie.SetActive(false);
-
-                
+                GameObject tempRd = hitZombie.GetComponent<EnemyController>().ragdollPrefab;
+                GameObject newTempRd = Instantiate(tempRd, hitZombie.transform.position, hitZombie.transform.rotation);
+                newTempRd.transform.Find("Hips").GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 10000);
+                hitZombie.SetActive(false);                
             }
         }
     }
@@ -70,7 +67,6 @@ public class GunController : MonoBehaviour
             {
                 ammo = ammo + ammoKit;
             }
-
             Debug.Log("Ammo :" + currentAmmo);
             Destroy(other.gameObject);
         }
