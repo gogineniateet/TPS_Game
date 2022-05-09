@@ -8,6 +8,9 @@ TagManager:
   - HealthKit
   - AmmoBox
   - Water
+  - RagdollZombie
+  - Safe
+  - Spawn
   layers:
   - Default
   - TransparentFX

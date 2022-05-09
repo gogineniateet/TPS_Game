@@ -36,8 +36,9 @@ public class GunController : MonoBehaviour
                 ammoText.text = ammo.ToString();
             }              
         }
+        
     }
-
+   
     public void Fire()
     {
         Ray ray = new Ray(firePosition.position, firePosition.forward);

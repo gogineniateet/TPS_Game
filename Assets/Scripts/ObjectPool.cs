@@ -26,11 +26,11 @@ public class ObjectPool : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        AddToPool();
+        AddToPool(number);
     }
     
     // Adding enemy to pool and setting to inactive
-    private void AddToPool()
+    public void AddToPool(int number)
     {
         for (int i = 0; i < number; i++)
         {

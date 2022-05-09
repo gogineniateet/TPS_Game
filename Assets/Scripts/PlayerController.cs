@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     CharacterController characterController;
     Animator animator;
     public GameObject GameOverPanel;
-    public GameObject GameWonPanel;
+   // public GameObject GameWonPanel;
 
     
     [SerializeField] private Text healthValue;
@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         GameOverPanel.SetActive(false);
+        //GameWonPanel.SetActive(false);
         characterController = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         healthValue.text= health.ToString();
@@ -81,11 +82,20 @@ public class PlayerController : MonoBehaviour
             healthValue.text = health.ToString();
             Destroy(other.gameObject);
         }
+        //if(other.gameObject.tag == "Safe")
+        //{
+        //    GameWonPanel.SetActive(true);
+        //}
 
         if(other.gameObject.tag == "Water")
         {
             Destroy(this.gameObject);
             GameOverPanel.SetActive(true);
         }
+        if(other.gameObject.tag == "Spawn")
+        {
+            ObjectPool.Instance.AddToPool(5);
+        }
+
     }
 }

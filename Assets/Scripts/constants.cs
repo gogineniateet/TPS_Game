@@ -8,6 +8,8 @@ public class constants : MonoBehaviour
     public const int ShootSound = 0;
     public const int WalkSound1 = 1;
     public const int WalkSound2 = 2;
+
+    
     
 
     //public const float playerSpeed = 250;

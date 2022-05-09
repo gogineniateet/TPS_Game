@@ -13,10 +13,12 @@ public class AudioController : MonoBehaviour
     {
         instance = this;
         audioSource = GetComponent<AudioSource>();        
-    }    
+    } 
+    
 
     public void PlayAudioClip(int clipID)
     {
         audioSource.PlayOneShot(audioClips[clipID]);
     }
+    
 }
